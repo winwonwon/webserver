@@ -1,0 +1,17 @@
+{
+  "name": "sec3_gr8_pj2_id033_071_081_105_201",
+  "version": "1.0.0",
+  "main": "front.js",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon front.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
