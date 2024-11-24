@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/search_result.css">
+    <title>Search Tutor</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="left-side">
+                <a href="#"><img src="https://drive.google.com/thumbnail?id=1s__vorldY8x0asV7d-lDg0zUY1i-MPu5"
+                        alt="Logo"></a>
+                <a href="/homepage" class="peregrine-link">Peregrine</a>
+            </div>
+            <div class="right-side">
+                <ul>
+                    <li><a href="/all-tutor">All Tutor</a></li>
+                    <li><a href="/search-tutor">Search Tutor</a></li>
+                    <li><a href="/contact-us">Contact Us</a></li>
+                    <li><a href="/admin-login">Login for Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="searchpart">
+            <header>
+                <h1>Search</h1>
+            </header>
+            <div class="filter">
+                <form id="searchForm">
+                    <div class="namebar">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name"><br>
+                    </div>
+                    <div class="subjectbar">
+                        <label for="subject">Subject:</label>
+                        <input type="text" id="subject"><br>
+                    </div>
+                    <div class="locationbar">
+                        <label for="location">Location:</label>
+                        <input type="text" id="location"><br>
+                    </div>
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="resultpart">
+            <header>
+                <h1>Result</h1>
+            </header>
+            <div id="searchResults"></div>
+            NO RESULT
+        </div>
+    </main>
+
+</body>
+
+</html>

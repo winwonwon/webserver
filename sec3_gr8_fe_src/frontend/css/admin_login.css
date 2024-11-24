@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+nav {
+  background-color: #B5CDD0;
+  color: #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.peregrine-link {
+  margin-left: 10px;
+  color: rgb(0, 0, 0); /* Text color is white for contrast */
+  text-align: center; /* Centers the text inside the link */
+  text-decoration: none; /* Removes the underline from the link */
+}
+
+/* circle logo */
+nav img {
+  height: 40px;
+  border: 2px;
+  border-radius: 25px;
+}
+
+.left-side {
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 50px;
+}
+
+nav ul li a {
+  color: #000000;
+  text-decoration: none;
+}
+
+header {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+header h1 {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
+.input-field input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 500px;
+  padding: 6px;
+}
+
+
+button[type="submit"] {
+  color: white;
+  background-color: black;
+  width: 160px;
+  padding: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  display: block;
+  margin: 20px auto 0;
+}

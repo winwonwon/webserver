@@ -1,0 +1,385 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+/* head */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.head {
+  background-color: #B5CDD0;
+  text-align: center;
+  color: #000000;
+  padding: 20px 0;
+}
+
+.containerrr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: #B5CDD0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  display: block;
+  color: #000000;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  background-color: #35565a;
+}
+
+/* search เส้นม่วง */
+#interface .navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  padding: 15px 30px;
+  border-bottom: 3px solid #B5CDD0;
+}
+
+/* กรอบอันใหม่ */
+#interface .navigation .search {
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 14px;
+  border: 1px solid #d7dbe6;
+  border-radius: 4px;
+}
+
+/* ความห่างของ class i */
+#interface .navigation .search i {
+  margin-right: 14px;
+}
+
+/* ทำให้กรอบอันเล็กของ search หาย */
+#interface .navigation .search input {
+  border: none;
+  outline: none;
+}
+
+/* dashboard */
+h2 {
+  font-size: 32px;
+  font-weight: 300;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+  color: var(--text);
+  border-spacing: 0 15px;
+}
+
+table tr {
+  background-color: transparent;
+  border: 1px solid #ddd !important;
+  padding: .35em;
+  margin-bottom: 10px;
+}
+
+table th,
+table td {
+  padding: 1.5em;
+  text-align: left;
+
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.head-add {
+  margin-right: 50px;
+}
+
+.people img {
+  width: 50px; 
+  height: 50px;
+}
+
+
+/* add page */
+
+.popup-boxx {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  /* background-color: #B5CDD0; */
+}
+
+.containerr {
+  width: 50%;
+  background: #fffbee;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerr form .user-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+form .user-details .input-box {
+  margin: 30px 0 12px 0;
+  width: calc(100% / 2 - 20px);
+}
+
+.user-details .input-box input {
+  margin-top: 10px;
+  height: 40px;
+  width: 90%;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding-left: 15px;
+  font-size: 14px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center horizontally */
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.icon-add {
+  text-align: center;
+  /* Center text horizontally */
+  display: flex;
+  /* Use flexbox */
+  justify-content: center;
+  /* Center flex items horizontally */
+  align-items: center;
+  /* Center flex items vertically */
+  margin-top: 20px;
+  /* Adjust margin as needed */
+  width: 100%;
+  /* Ensure the icon container takes full width */
+}
+
+.add-cancle {
+  width: 100px;
+  height: 40px;
+  background: #f2f2f2;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.add-add {
+  width: 100px;
+  height: 40px;
+  background: #f2f2f2;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.add-cancle:hover,
+.add-add:hover {
+  background: #B5CDD0;
+}
+
+
+
+.container {
+  width: 50%;
+  background: #fffbee;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container form .user-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+
+form .user-details .input-box {
+  margin: 30px 0 12px 0;
+  width: calc(100% / 2 - 20px);
+}
+
+.user-details .input-box input {
+  margin-top: 10px;
+  height: 40px;
+  width: 90%;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding-left: 15px;
+  font-size: 14px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center horizontally */
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.edit-cancle {
+  width: 100px;
+  height: 40px;
+  background: #f2f2f2;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.edit-confirm {
+  width: 100px;
+  height: 40px;
+  background: #f2f2f2;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.edit-cancle:hover,
+.edit-confirm:hover {
+  background: #B5CDD0;
+}
+
+
+/* delete page */
+.ppopup-box {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  /* background-color: #B5CDD0; */
+}
+
+.ccontainer {
+  width: 50%;
+  background: #fffbee;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+}
+
+.delete-cancle {
+  width: 100px;
+  height: 40px;
+  background: #f2f2f2;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.delete-confirm {
+  width: 100px;
+  height: 40px;
+  background: #f2f2f2;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+}
+
+.delete-cancle:hover,
+.delete-confirm:hover {
+  background: #B5CDD0;
+}
+
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

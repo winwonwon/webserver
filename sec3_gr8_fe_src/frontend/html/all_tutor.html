@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/all_tutor.css">
+
+    <title>All Tutors</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="left-side">
+                <a href="#"><img src="https://drive.google.com/thumbnail?id=1s__vorldY8x0asV7d-lDg0zUY1i-MPu5"
+                        alt="Logo"></a>
+                <a href="/homepage" class="peregrine-link">Peregrine</a>
+            </div>
+            <div class="right-side">
+                <ul>
+                    <li><a href="/all-tutor">All Tutor</a></li>
+                    <li><a href="/search-tutor">Search Tutor</a></li>
+                    <li><a href="/contact-us">Contact Us</a></li>
+                    <li><a href="/admin-login">Login for Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="all-tutor">
+            <header>
+                <h1>All Tutors</h1>
+            </header>
+        </div>
+
+        <div class="box"></div>
+
+    </main>
+
+    <script>
+
+        // all-tutor
+        document.addEventListener("DOMContentLoaded", async function () {
+            await fetch('http://localhost:3031/all-tutor')
+                .then(response => response.json())
+                .then(data => {
+
+                    const tutorContainer = document.querySelector(".box")
+                    tutorContainer.innerHTML = ''; 
+
+                    // const htmlText = '';
+                    console.log(data);
+
+                    data.forEach(tutor => {
+                        const htmlText = `
+                            <div class="result-container">
+                                <div class="tutor-box" onclick="window.location.href='/tutorinfo/${tutor.id}'">
+                                    <img src="../pictures/user.png">
+                                    <div class="tutor-info">
+                                        <p class="tutor-name">${tutor.TutorName}</p><br>
+                                        <p class="tutor-education">${tutor.Education}</p>
+                                        <p class="tutor-location">${tutor.Location}</p>
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        tutorContainer.innerHTML += htmlText;
+                    });
+
+                })
+                .catch(error => {
+                    console.error('Error fetching tutor data:', error);
+                });
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/pro_add.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .head {
+            background-color: #B5CDD0;
+            text-align: center;
+            color: #000000;
+            padding: 20px 0;
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            background-color: #B5CDD0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            float: left;
+        }
+
+        nav ul li a {
+            display: block;
+            color: #000000;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            background-color: #35565a;
+        }
+
+        .dropdown {
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="head">
+        <h1>Admin Control Panel</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/homepage">Home Page</a></li>
+            <li><a href="/my-profile">My Profile</a></li>
+            <li class="dropdown">
+                <a href="/product-manange" class="dropbtn">Tutor Management <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="/product-add">Add</a>
+                    <a href="/product-delete">Delete</a>
+                    <a href="/product-edit">Edit</a>
+                </div>
+            </li>
+            <!-- href change to routing -->
+            <li class="dropdown">
+                <a href="/account-manage" class="dropbtn">Admin Management <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="/account-add">Add</a>
+                    <a href="/account-delete">Delete</a>
+                    <a href="/account-edit">Edit</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="head_page">
+        <h3> Add Tutor </h3>
+    </div>
+
+    <form id="productForm">
+        <fieldset class="form">
+
+            <label for="firstName">First Name:</label><br>
+            <input type="text" id="firstName" name="firstName" required><br><br>
+
+            <label for="lastName">Last Name:</label><br>
+            <input type="text" id="lastName" name="lastName" required><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="telephone">Telephone:</label><br>
+            <input type="tel" id="telephone" name="telephone" required><br><br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <label for="education">Education:</label><br>
+            <input type="text" id="education" name="education"><br>
+
+            <label for="experience">Experience:</label><br>
+            <input type="text" id="experience" name="experience"><br>
+
+            <label for="subjects_offered">Subjects Offered:</label><br>
+            <input type="text" id="subjects_offered" name="subjects_offered"><br>
+
+            <label for="teaching_approach">Teaching Approach:</label><br>
+            <textarea id="teaching_approach" name="teaching_approach"></textarea><br>
+
+            <label for="availability">Availability:</label><br>
+            <input type="text" id="availability" name="availability"><br>
+
+            <label for="location">Location:</label><br>
+            <input type="text" id="location" name="location"><br>
+
+            <label for="rates">Rates:</label><br>
+            <input type="text" id="rates" name="rates"><br>
+
+            <label for="image">Upload Image:</label><br>
+            <input type="text" id="image" name="image"><br>
+
+            <button type="submit">Submit</button>
+            <button type="reset">Clear</button>
+        </fieldset>
+    </form>
+    <script>
+        document.getElementById("productForm").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            const newTutor = {
+                Account_FirstName: document.getElementById('firstName').value,
+                Account_LastName: document.getElementById('lastName').value,
+                Account_Mail: document.getElementById('email').value,
+                Account_Tel: document.getElementById('telephone').value,
+                Account_Password: document.getElementById('password').value,
+                Education: document.getElementById('education').value,
+                Experience: document.getElementById('experience').value,
+                SubjectsOffered: document.getElementById('subjects_offered').value,
+                TeachingApproach: document.getElementById('teaching_approach').value,
+                Availability: document.getElementById('availability').value,
+                Location: document.getElementById('location').value,
+                Rates: document.getElementById('rates').value,
+                imgpath: document.getElementById('image').value,
+            };
+
+            try {
+                const response = await fetch('http://localhost:3031/temp-tutor-insert-data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ tutor: newTutor })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to create user.');
+                }
+
+                const data = await response.json();
+                if (data.error) {
+                    throw new Error(data.message);
+                }
+
+                console.log('User created successfully:', data);
+
+                // Optionally, reset the form fields
+                this.reset();
+
+                // Optionally, display a success message
+                alert('User created successfully.');
+
+                window.location.href = '/product-add'
+
+            } catch (error) {
+                console.error('Error creating user:', error.message);
+                alert('Failed to create user. Please try again.');
+            }
+        });
+    </script>
+</body>
+
+</html>

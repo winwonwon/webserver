@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="eng">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Management Page</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/product_manage.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .head {
+            background-color: #B5CDD0;
+            text-align: center;
+            color: #000000;
+            padding: 20px 0;
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            background-color: #B5CDD0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            float: left;
+        }
+
+        nav ul li a {
+            display: block;
+            color: #000000;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            background-color: #35565a;
+        }
+
+        .dropdown {
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <h1>Admin Control Panel</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/homepage">Home Page</a></li>
+            <li class="dropdown">
+                <a href="/product-manage" class="dropbtn">Tutor Management <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="/product-add">Add</a>
+                    <a href="/product-delete">Delete</a>
+                    <a href="/product-edit">Edit</a>
+                </div>
+            </li>
+            <!-- href change to routing -->
+            <li class="dropdown">
+                <a href="/account-manage" class="dropbtn">Admin Management <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="/account-add">Add</a>
+                    <a href="/account-delete">Delete</a>
+                    <a href="/account-edit">Edit</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <body>
+        <h3>All Tutor Information</h3>
+
+        <table id="tutor-table">
+            <thead>
+                <tr>
+                    <th>Tutor ID</th>
+                    <th>Account ID</th>
+                    <th>Education</th>
+                    <th>Experience</th>
+                    <th>Subjects Offered</th>
+                    <th>Teaching Approach</th>
+                    <th>Availability</th>
+                    <th>Location</th>
+                    <th>Rates</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody id="tutor-list">
+                <!-- Tutor information will be dynamically added here -->
+            </tbody>
+        </table>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                fetch('http://localhost:3031/all-tutor-information')
+                    .then(response => response.json())
+                    .then(data => {
+                        const tutorList = document.getElementById('tutor-list');
+                        tutorList.innerHTML = ''; // Clear existing rows
+
+                        data.forEach(tutor => {
+                            const row = `
+                                <tr>
+                                    <td>${tutor.Tutor_ID}</td>
+                                    <td>${tutor.Account_ID}</td>
+                                    <td>${tutor.Education}</td>
+                                    <td>${tutor.Experience}</td>
+                                    <td>${tutor.SubjectsOffered}</td>
+                                    <td>${tutor.TeachingApproach}</td>
+                                    <td>${tutor.Availability}</td>
+                                    <td>${tutor.Location}</td>
+                                    <td>${tutor.Rates}</td>
+                                    <td>${tutor.imgpath}</td>
+                                </tr>
+                            `;
+                            tutorList.innerHTML += row;
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                    });
+            });
+        </script>
+    </body>
+
+</html>

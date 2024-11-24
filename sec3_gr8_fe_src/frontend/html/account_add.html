@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Management | Add</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/account2new.css">
+
+</head>
+
+<body>
+    <div class="head">
+        <h1>Admin Control Panel</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/homepage">Home Page</a></li>
+            <li class="dropdown">
+                <a href="/product-manage" class="dropbtn">Tutor Management <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="/product-add">Add</a>
+                    <a href="/product-delete">Delete</a>
+                    <a href="/product-edit">Edit</a>
+                </div>
+            </li>
+            <!-- href change to routing -->
+            <li class="dropdown">
+                <a href="/account-manage" class="dropbtn">Admin Management <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="/account-add">Add</a>
+                    <a href="/account-delete">Delete</a>
+                    <a href="/account-edit">Edit</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+<!-- action="http://localhost:3031/addadmin" method="post" -->
+    <div class="containerrr">
+        <h1> Add account </h1>
+        <form  class="BoxforAddProduct" id="addform" >
+            <fieldset>
+           
+
+                <div class="user-details">
+                
+
+                <span class="details">First Name</span>
+                        <input type="text" id="txtfirstname"  name="firstName" placeholder="Enter your first name" required><br><br>
+          
+                  
+                        <span class="details">Last Name</span>
+                        <input type="text" id="txtlastname"  name="lastName" placeholder="Enter your last name" required><br><br>
+                    
+                        <span class="details">Email</span>
+                        <input type="email" id="txtemail" name="email" placeholder="Enter your email" required><br><br>
+            
+                        <span class="details">Phone Number</span>
+                        <input type="text" id="phonenum"  name="telephone" 
+                            placeholder="Enter your phone number"><br><br>
+                
+                        <span class="details">Password</span>
+                        <input type="text" id="password"  name="password" placeholder="Enter your password" required><br>
+                <br><br>
+                
+                <div class="boxforSavebutton">
+                    <button class="SaveButton" type="submit"
+                        onclick="">SUBMIT</button>
+                </div>
+                
+
+            </div>
+            </fieldset>
+        </form>
+
+      
+
+
+    </div>
+    <script>
+
+        document.getElementById("addform").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            const newAdmin = {
+                Account_FirstName: document.getElementById('txtfirstname').value,
+                Account_LastName: document.getElementById('txtlastname').value,
+                Account_Mail: document.getElementById('txtemail').value,
+                Account_Tel: document.getElementById('phonenum').value,
+                Account_Password: document.getElementById('password').value
+            };
+    
+            try {
+                
+                const response = await fetch('http://localhost:3031/addadmin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ admin: newAdmin })
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to create user.');
+                }
+    
+                const data = await response.json();
+                if (data.error) {
+                    throw new Error(data.message);
+                }
+    
+                console.log('User created successfully:', data);
+    
+                // Optionally, reset the form fields
+                this.reset();
+
+                // Optionally, display a success message
+                alert('User created successfully.');
+
+                window.location.href = '/account-manage'
+    
+            } catch (error) {
+                console.error('Error creating user:', error.message);
+                alert('Failed to create user. Please try again.');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
+
+

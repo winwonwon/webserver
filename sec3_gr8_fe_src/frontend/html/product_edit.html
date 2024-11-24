@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Management | Update</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/pro_edit.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .head {
+            background-color: #B5CDD0;
+            text-align: center;
+            color: #000000;
+            padding: 20px 0;
+        }
+
+        nav ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            background-color: #B5CDD0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            /* Center the items horizontally */
+        }
+
+        nav ul li {
+            float: left;
+        }
+
+        nav ul li a {
+            display: block;
+            color: #000000;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            background-color: #35565a;
+        }
+
+        .dropdown {
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <h1>Admin Control Panel</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/homepage">Home Page</a></li>
+            <li class="dropdown">
+                <a href="/product-manage" class="dropbtn">Tutor Management <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="/product-add">Add</a>
+                    <a href="/product-delete">Delete</a>
+                    <a href="/product-edit">Edit</a>
+                </div>
+            </li>
+            <!-- href change to routing -->
+            <li class="dropdown">
+                <a href="/account-manage" class="dropbtn">Admin Management <i class="fa fa-caret-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="/account-add">Add</a>
+                    <a href="/account-delete">Delete</a>
+                    <a href="/account-edit">Edit</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <h3> Edit Tutor Information </h3>
+    <div class="search-container">
+        <form id="search-form" method="GET">
+            <input type="text" id="acc-id" name="accid" placeholder="Enter Account ID...">
+            <input type="text" id="tutor-id" name="tutorid" placeholder="Enter Tutor ID...">
+            <input type="text" id="name" name="name" placeholder="Enter Name...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <h3>Search Results</h3>
+    <div id="searchResults"></div>
+    <script>
+        const users = [];
+        var accid = ''
+        var tutorid = ''
+        document.getElementById("search-form").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            accid = document.getElementById("acc-id").value;
+            tutorid = document.getElementById("tutor-id").value;
+            var name = document.getElementById("name").value;
+
+            const url = `http://localhost:3031/edit-search?accid=${accid}&tutorid=${tutorid}&name=${name}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error('Error fetching users:', data.message);
+                    return;
+                }
+
+                if (data.error === false && Array.isArray(data.data)) {
+                    const fetchedUsers = data.data;
+
+                    fetchedUsers.forEach(user => {
+                        users.push(user);
+                    });
+
+                    console.log('Users fetched:', users);
+                    displayUsers(users);
+                } else {
+                    console.error('Invalid response format:', data);
+                    throw new Error('Invalid response format');
+                }
+            } catch (error) {
+                console.error('Error fetching or processing users:', error);
+            }
+        });
+
+        function displayUsers(users) {
+            const tbody = document.getElementById("searchResults");
+            tbody.innerHTML = ""; // Clear the table before adding new rows
+            users.forEach(user => {
+                const row = document.createElement("table");
+                row.innerHTML =
+                    `
+                    <tr>
+                        <th>Tutor ID</th>
+                        <th>Account ID</th>
+                        <th>Education</th>
+                        <th>Experience</th>
+                        <th>Subjects Offered</th>
+                        <th>Teaching Approach</th>
+                        <th>Availability</th>
+                        <th>Location</th>
+                        <th>Rates</th>
+                        <th>Image Path</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <td>${user.Tutor_ID}</td>
+                        <td>${user.Account_ID}</td>
+                        <td>${user.Education}</td>
+                        <td>${user.Experience}</td>
+                        <td>${user.SubjectsOffered}</td>
+                        <td>${user.TeachingApproach}</td>
+                        <td>${user.Availability}</td>
+                        <td>${user.Location}</td>
+                        <td>${user.Rates}</td>
+                        <td>${user.imgpath}</td>
+                        <td>
+                            <button id="bttn-edit" class="edit-btn" data-id="${user.Account_ID}">EDIT</button>
+                        </td>
+                    </tr> 
+                    `;
+                tbody.appendChild(row);
+
+                // Add event listener to edit button
+                const editBtn = row.querySelector(".edit-btn");
+                editBtn.addEventListener("click", async function () {
+                    const userId = this.getAttribute("data-id");
+                    const userIndex = users.findIndex(u => u.Account_ID === userId);
+                    const user = users[userIndex];
+
+                    if (!user) {
+                        console.error("User not found");
+                        return;
+                    }
+
+                    // Assuming input fields are directly in the table cells for editing
+                    row.innerHTML = `
+                        <tr>
+                            <th>Tutor ID</th>
+                            <td>${user.Tutor_ID}</td>
+                        </tr>
+                        <tr>
+                            <th>Account ID</th>
+                            <td>${user.Account_ID}</td>
+                        </tr>
+                        <tr>
+                            <th>Education</th>
+                            <td><input type="text" id="edit-education" value="${user.Education}"></td>
+                        </tr>
+                        <tr>
+                            <th>Experience</th>
+                            <td><input type="text" id="edit-experience" value="${user.Experience}"></td>
+                        </tr>
+                        <tr>
+                            <th>Subjects Offered</th>
+                            <td><input type="text" id="edit-subjects" value="${user.SubjectsOffered}"></td>
+                        </tr>
+                        <tr>
+                            <th>Teaching Approach</th>
+                            <td><input type="text" id="edit-approach" value="${user.TeachingApproach}"></td>
+                        </tr>
+                        <tr>
+                            <th>Availability</th>
+                            <td><input type="text" id="edit-availability" value="${user.Availability}"></td>
+                        </tr>
+                        <tr>
+                            <th>Location</th>
+                            <td><input type="text" id="edit-location" value="${user.Location}"></td>
+                        </tr>
+                        <tr>
+                            <th>Rates</th>
+                            <td><input type="text" id="edit-rates" value="${user.Rates}"></td>
+                        </tr>
+                        <tr>
+                            <th>Image Path</th>
+                            <td><input type="text" id="edit-imgpath" value="${user.imgpath}"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center;">
+                                <button class="save-btn" data-id="${user.Account_ID}">SAVE</button>
+                            </td>
+                        </tr>
+                    `;
+
+                    // Add event listener to save button
+                    const saveBtn = row.querySelector(".save-btn");
+                    saveBtn.addEventListener("click", async () => {
+                        // Get updated values from input fields
+                        const updatedUser = {
+                            Education: document.getElementById("edit-education").value,
+                            Experience: document.getElementById("edit-experience").value,
+                            SubjectsOffered: document.getElementById("edit-subjects").value,
+                            TeachingApproach: document.getElementById("edit-approach").value,
+                            Availability: document.getElementById("edit-availability").value,
+                            Location: document.getElementById("edit-location").value,
+                            Rates: document.getElementById("edit-rates").value,
+                            imgpath: document.getElementById("edit-imgpath").value,
+                        };
+
+                        // Update the user in the local array
+                        users[userIndex] = { ...user, ...updatedUser };
+
+                        // Update user list display
+                        // Update user attributes with form values
+
+                        try {
+                            const response = await fetch(`http://localhost:3031/edit?accid=${accid}&tutorid=${tutorid}`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ user: updatedUser })
+                            });
+
+                            if (!response.ok) {
+                                throw new Error('Failed to update user.');
+                            }
+
+                            const data = await response.json();
+                            if (data.error) {
+                                throw new Error(data.message);
+                            }
+
+                            displayUsers(users);
+
+                            alert('User updated successfully.');
+                        }
+                        catch (error) {
+                            console.error('Error updating user:', error);
+                        }
+                    });
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

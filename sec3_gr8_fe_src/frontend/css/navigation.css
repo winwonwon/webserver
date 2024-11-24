@@ -1,0 +1,43 @@
+nav {
+    background-color: #B5CDD0;
+    color: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* circle logo */
+nav img {
+    height: 40px;
+    border: 2px;
+    border-radius: 25px;
+}
+
+.left-side {
+    display: flex;
+    align-items: center;
+}
+
+.peregrine-link {
+    margin-left: 10px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    text-decoration: none;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 50px;
+}
+
+nav ul li a {
+    color: #000000;
+    text-decoration: none;
+}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/search_result.css">
+    <title>Search Tutor</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="left-side">
+                <a href="#"><img src="https://drive.google.com/thumbnail?id=1s__vorldY8x0asV7d-lDg0zUY1i-MPu5"
+                        alt="Logo"></a>
+                <a href="/homepage" class="peregrine-link">Peregrine</a>
+            </div>
+            <div class="right-side">
+                <ul>
+                    <li><a href="/all-tutor">All Tutor</a></li>
+                    <li><a href="/search-tutor">Search Tutor</a></li>
+                    <li><a href="/contact-us">Contact Us</a></li>
+                    <li><a href="/admin-login">Login for Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="searchpart">
+            <header>
+                <h1>Search</h1>
+            </header>
+            <div class="filter">
+                <form id="searchForm">
+                    <div class="namebar">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name"><br>
+                    </div>
+                    <div class="subjectbar">
+                        <label for="subject">Subject:</label>
+                        <input type="text" id="subject"><br>
+                    </div>
+                    <div class="locationbar">
+                        <label for="location">Location:</label>
+                        <input type="text" id="location"><br>
+                    </div>
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="resultpart">
+            <header>
+                <h1>Result</h1>
+            </header>
+            <div id="searchResults"></div>
+        </div>
+    </main>
+    <script>
+
+        function refreshAllUsers() {
+            const searchResultsDiv = document.getElementById('searchResults');
+            searchResultsDiv.textContent = '';
+        }
+
+        function displayUsers(users) {
+            refreshAllUsers();
+            const searchResultsDiv = document.getElementById('searchResults');
+
+            users.forEach(tutor => {
+                const tutorBox = document.createElement('div');
+                tutorBox.className = 'tutor-box';
+                tutorBox.innerHTML = `
+            <img src="https://drive.google.com/thumbnail?id=1eQiYtmS-jd3fBMJ5spBGdpbJ8-OnIxU1" alt="Tutor Image">
+            <div class="tutor-info">
+                <p class="tutor-name">${(tutor.Account_FirstName.toUpperCase() + ' ' + tutor.Account_LastName.toUpperCase())}</p>
+                <p class="tutor-university">${tutor.Education}</p><br>
+                <p class="tutor-experience">${tutor.Experience}</p>
+            </div>
+        `;
+
+                tutorBox.addEventListener('click', function () {
+                    window.location.href = `/tutorinfo/${tutor.Tutor_ID}`;
+                });
+
+                searchResultsDiv.appendChild(tutorBox);
+            });
+        }
+
+
+        async function displayAllUsers() {
+            try {
+                const response = await fetch(`http://localhost:3031/search`);
+                const data = await response.json();
+
+                if (data.error) {
+                    console.error('Error fetching users:', data.message);
+                    return;
+                }
+
+                if (data.error === false && Array.isArray(data.data)) {
+                    const fetchedUsers = data.data;
+                    displayUsers(fetchedUsers); // Call displayUsers function with fetched data
+                } else {
+                    console.error('Invalid response format:', data);
+                    throw new Error('Invalid response format');
+                }
+            } catch (error) {
+                console.error('Error fetching or processing users:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            await displayAllUsers();
+
+            const searchForm = document.getElementById('searchForm');
+
+            searchForm.addEventListener('submit', async function (event) {
+                event.preventDefault(); // Prevent default form submission behavior
+
+                // Get search criteria from the form
+                const name = document.getElementById('name').value;
+                const location = document.getElementById('location').value;
+                const subject = document.getElementById('subject').value;
+
+                if (name === '' && location === '' && subject === '') {
+                    displayAllUsers();
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`http://localhost:3031/search-sp?name=${name}&location=${location}&subject=${subject}`);
+                    const data = await response.json();
+
+                    if (data.error) {
+                        console.error('Error fetching users:', data.message);
+                        return;
+                    }
+
+                    if (data.error === false && Array.isArray(data.data)) {
+                        const fetchedUsers = data.data;
+                        if(data.message==='Users not found'){
+                            alert('No tutors founded.');
+                            displayAllUsers();
+                            return;
+                        }
+                        displayUsers(fetchedUsers); // Call displayUsers function with fetched data
+                    } else {
+                        console.error('Invalid response format:', data);
+
+                        throw new Error('Invalid response format');
+                    }
+                
+                } catch (error) {
+                    console.error('Error fetching or processing users:', error);
+                    //return window.location.href='/no-tutor';
+                    return res.status(404).json({ error: true, message: 'No users found' });
+                }
+                
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>

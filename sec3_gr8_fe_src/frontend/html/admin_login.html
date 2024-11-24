@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/admin_login.css">
+  <title>Login Page</title>
+</head>
+
+<body>
+
+  <nav>
+    <div class="left-side">
+      <a href="#"><img src="https://drive.google.com/thumbnail?id=1s__vorldY8x0asV7d-lDg0zUY1i-MPu5" alt="Logo"></a>
+      <a href="/homepage" class="peregrine-link">Peregrine</a>
+    </div>
+    <div class="right-side">
+      <ul>
+        <li><a href="/all-tutor">All Tutor</a></li>
+        <li><a href="/search-tutor">Search Tutor</a></li>
+        <li><a href="/contact-us">Contact Us</a></li>
+        <li><a href="/admin-login">Login for Admin</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <header>
+      <h1>Login For Admin</h1>
+    </header>
+
+    <form id="loginForm">
+      <div class="input-field">
+        <label for="email">Email<br></label>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+      </div>
+      <div class="input-field">
+        <label for="password">Password<br></label>
+        <input type="password" id="password" name="password" placeholder="Enter your password">
+      </div>
+      <button type="submit" id="Loginbutton">Log In</button>
+    </form>
+  </main>
+
+  <script>
+
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const response = await fetch('http://localhost:3031/admin-email-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+      console.log(data)
+      if (data.loginCHECK) {
+     
+        window.location.href=`/admininfo/${data.admin_token}`
+      } else {
+        alert('Username or Password are incorrect');
+      }
+    });
+
+  </script>
+
+</body>
+
+</html>
